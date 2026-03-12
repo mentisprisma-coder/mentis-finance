@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0a1f44" />
+  <title>Mentis Finance</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero panel">
+      <div class="hero-top">
+        <div>
+          <h1>Mentis Finance</h1>
+          <p id="currentMonthLabel">M&ecirc;s atual</p>
+          <small id="todayLabel" class="hero-date">Hoje</small>
+        </div>
+        <div class="hero-actions">
+          <button id="themeToggle" class="icon-btn" title="Modo claro/escuro">☀️</button>
+        </div>
+      </div>
+
+      <div class="stats-grid stats-grid-phase1">
+        <article class="stat-card">
+          <strong id="incomeValue">0 €</strong>
+          <span>Entradas</span>
+        </article>
+        <article class="stat-card">
+          <strong id="expenseValue">0 €</strong>
+          <span>Saidas</span>
+        </article>
+        <article class="stat-card">
+          <strong id="balanceValue">0 €</strong>
+          <span>Saldo atual</span>
+        </article>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel section-card" id="homeSection">
+        <div class="section-head">
+          <h2>Gastos por categoria</h2>
+          <span class="pill" id="currentMonthMovements">0 movimentos</span>
+        </div>
+        <div id="categoryList" class="category-list"></div>
+      </section>
+
+      <section class="panel section-card" id="recentSection">
+        <div class="section-head">
+          <h2>&Uacute;ltimos movimentos</h2>
+          <span class="pill secondary">M&ecirc;s atual</span>
+        </div>
+        <div id="recentTransactionList" class="transaction-list"></div>
+      </section>
+
+      <section class="panel section-card hidden" id="addSection">
+        <div class="section-head">
+          <h2 id="formTitle">Adicionar movimento</h2>
+        </div>
+
+        <div class="toggle-row">
+          <button class="type-btn active" data-type="expense">Saida</button>
+          <button class="type-btn" data-type="income">Entrada</button>
+        </div>
+
+        <form id="transactionForm" class="finance-form">
+          <label>
+            Valor (€)
+            <input type="number" id="amountInput" min="0.01" step="0.01" placeholder="0,00" required />
+          </label>
+
+          <label>
+            Descri&ccedil;&atilde;o
+            <input type="text" id="descriptionInput" placeholder="Ex: Supermercado" />
+          </label>
+
+          <label>
+            Categoria
+            <select id="categoryInput" required></select>
+          </label>
+
+          <label>
+            Data
+            <input type="date" id="dateInput" required />
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn" id="submitBtn">Guardar movimento</button>
+            <button type="button" class="ghost-btn hidden" id="cancelEditBtn">Cancelar edicao</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel section-card hidden" id="historySection">
+        <div class="section-head">
+          <h2>Historico mensal</h2>
+          <span class="pill" id="historyCount">0 meses</span>
+        </div>
+        <div id="historyList" class="history-list"></div>
+      </section>
+
+      <section class="panel section-card hidden" id="monthDetailSection">
+        <div class="section-head">
+          <h2 id="detailMonthTitle">Detalhe do mes</h2>
+          <button type="button" class="ghost-btn" id="backToHistoryBtn">Voltar ao historico</button>
+        </div>
+
+        <div class="summary-grid summary-grid-detail" id="detailStats"></div>
+
+        <div class="detail-block">
+          <div class="section-head compact-head">
+            <h3>Categorias</h3>
+            <span class="pill secondary" id="detailCategoryHint">Saidas do mes</span>
+          </div>
+          <div id="detailCategoryList" class="category-list"></div>
+        </div>
+
+        <div class="detail-block">
+          <div class="section-head compact-head">
+            <h3>Movimentos do mes</h3>
+            <span class="pill secondary" id="detailMovementCount">0 movimentos</span>
+          </div>
+          <div id="detailTransactionList" class="transaction-list"></div>
+        </div>
+      </section>
+
+      <section class="panel section-card hidden" id="categoryDetailSection">
+        <div class="section-head">
+          <h2 id="categoryDetailTitle">Categoria</h2>
+          <button type="button" class="ghost-btn" id="closeCategoryDetailBtn">Fechar</button>
+        </div>
+        <p class="section-copy" id="categoryDetailMeta">Movimentos filtrados.</p>
+        <div id="categoryDetailList" class="transaction-list"></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav panel">
+      <button class="nav-btn active" data-view="home">
+        <span>📊</span>
+        <strong>Home</strong>
+      </button>
+      <button class="nav-btn" data-view="add">
+        <span>➕</span>
+        <strong>Adicionar</strong>
+      </button>
+      <button class="nav-btn" data-view="history">
+        <span>🗂️</span>
+        <strong>Historico</strong>
+      </button>
+    </nav>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", async () => {
+      try {
+        const reg = await navigator.serviceWorker.register("./sw.js", { scope: "./" });
+        console.log("Service Worker registado:", reg.scope);
+      } catch (err) {
+        console.error("Erro no Service Worker:", err);
+      }
+    });
+  }
+  </script>
+</body>
+</html>
+

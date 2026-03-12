@@ -1,0 +1,512 @@
+:root {
+  --bg-1: #041b48;
+  --bg-2: #032a63;
+  --panel: rgba(8, 42, 104, 0.86);
+  --panel-2: rgba(3, 27, 72, 0.9);
+  --card: rgba(4, 30, 84, 0.92);
+  --text: #f4f8ff;
+  --muted: #b6c8ea;
+  --line: rgba(111, 150, 230, 0.25);
+  --accent: #34d8c5;
+  --accent-2: #2fe27c;
+  --danger: #ff5f77;
+  --income: #2fe27c;
+  --shadow: 0 14px 30px rgba(0, 0, 0, 0.26);
+}
+
+body.light {
+  --bg-1: #cfe5ff;
+  --bg-2: #86c7e2;
+  --panel: rgba(240, 248, 255, 0.88);
+  --panel-2: rgba(225, 240, 255, 0.9);
+  --card: rgba(244, 249, 255, 0.98);
+  --text: #0e234f;
+  --muted: #526a98;
+  --line: rgba(64, 104, 170, 0.16);
+  --accent: #0bb8b2;
+  --accent-2: #20c968;
+  --danger: #d84a62;
+  --income: #14b85e;
+  --shadow: 0 14px 30px rgba(14, 35, 79, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(180deg, var(--bg-2), var(--bg-1));
+  color: var(--text);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(100%, 860px);
+  margin: 0 auto;
+  padding: 18px 18px 120px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.hero {
+  padding: 22px;
+  margin-bottom: 18px;
+}
+
+.hero-top,
+.section-head,
+.toggle-row,
+.history-card-head,
+.compact-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.hero h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  line-height: 1;
+}
+
+.hero p {
+  margin-top: 8px;
+  font-size: 1.08rem;
+  color: var(--muted);
+}
+
+.hero-date {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.icon-btn,
+.type-btn,
+.nav-btn,
+.primary-btn,
+.ghost-btn,
+.category-card,
+.history-card {
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.icon-btn:hover,
+.type-btn:hover,
+.nav-btn:hover,
+.primary-btn:hover,
+.ghost-btn:hover,
+.category-card:hover,
+.history-card:hover {
+  transform: translateY(-1px);
+}
+
+.icon-btn {
+  width: 62px;
+  height: 62px;
+  border-radius: 18px;
+  font-size: 1.65rem;
+}
+
+.stats-grid {
+  margin-top: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+.stats-grid-phase1 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.stat-card,
+.summary-box {
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+
+.stat-card strong,
+.summary-box strong {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.stat-card span,
+.summary-box span,
+.section-copy {
+  color: var(--muted);
+}
+
+.section-card {
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.pill {
+  border: 1px solid var(--line);
+  background: rgba(74, 113, 198, 0.18);
+  color: var(--muted);
+  padding: 11px 16px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+}
+
+.pill.secondary {
+  font-size: 0.9rem;
+}
+
+.category-list,
+.history-list,
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.category-card,
+.history-card {
+  width: 100%;
+  padding: 18px;
+  border-radius: 22px;
+  text-align: left;
+}
+
+.category-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.category-card strong {
+  display: block;
+  font-size: 1.05rem;
+}
+
+.category-percent {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.history-card-head strong {
+  font-size: 1.15rem;
+}
+
+.history-card-head span,
+.history-card-grid small {
+  color: var(--muted);
+}
+
+.history-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.history-card-grid strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 1.05rem;
+}
+
+.transaction-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 18px;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+
+.transaction-item.expense {
+  background: linear-gradient(180deg, rgba(20, 36, 79, 0.96), rgba(84, 34, 58, 0.84));
+  border-color: rgba(173, 92, 116, 0.28);
+}
+
+.transaction-item.income {
+  background: linear-gradient(180deg, rgba(10, 74, 62, 0.94), rgba(7, 58, 55, 0.92));
+}
+
+.tx-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  font-size: 1.55rem;
+}
+
+.tx-main strong {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.tx-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tx-tag {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.tx-value {
+  text-align: right;
+}
+
+.tx-value strong {
+  display: block;
+  font-size: 1.4rem;
+}
+
+.tx-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tx-actions button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+
+.finance-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.finance-form label {
+  color: var(--muted);
+}
+
+.finance-form input,
+.finance-form select {
+  width: 100%;
+  margin-top: 8px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  outline: none;
+  background: var(--card);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.toggle-row {
+  margin-top: 16px;
+}
+
+.type-btn {
+  flex: 1;
+  padding: 15px;
+  border-radius: 18px;
+}
+
+.type-btn.active[data-type="income"] {
+  background: linear-gradient(90deg, rgba(47, 226, 124, 0.24), rgba(52, 216, 197, 0.26));
+}
+
+.type-btn.active[data-type="expense"] {
+  background: linear-gradient(90deg, rgba(124, 56, 84, 0.42), rgba(178, 88, 109, 0.26));
+  border-color: rgba(189, 98, 120, 0.35);
+}
+
+.nav-btn.active,
+.primary-btn {
+  background: linear-gradient(90deg, rgba(47, 226, 124, 0.24), rgba(52, 216, 197, 0.26));
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.primary-btn,
+.ghost-btn {
+  padding: 16px 18px;
+  border-radius: 18px;
+}
+
+.wide-btn {
+  width: 100%;
+}
+
+.ghost-btn {
+  background: transparent;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.summary-grid-detail {
+  margin-bottom: 18px;
+}
+
+.detail-block + .detail-block {
+  margin-top: 18px;
+}
+
+.compact-head {
+  align-items: flex-start;
+}
+
+.bottom-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  width: min(calc(100% - 22px), 820px);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  z-index: 10;
+}
+
+.nav-btn {
+  border-radius: 20px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.nav-btn span {
+  font-size: 1.5rem;
+}
+
+.empty-state {
+  padding: 22px;
+  border-radius: 22px;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.empty-state strong {
+  color: var(--text);
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    padding: 14px 14px 116px;
+  }
+
+  .hero {
+    padding: 18px;
+  }
+
+  .hero-top {
+    align-items: flex-start;
+  }
+
+  .icon-btn {
+    width: 56px;
+    height: 56px;
+  }
+
+  .stats-grid-phase1,
+  .summary-grid,
+  .history-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .transaction-item {
+    grid-template-columns: auto 1fr;
+  }
+
+  .tx-value {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .tx-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 460px) {
+  .hero-top,
+  .section-head,
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions {
+    justify-content: flex-end;
+  }
+
+  .bottom-nav strong {
+    font-size: 0.85rem;
+  }
+}
