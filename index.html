@@ -47,6 +47,13 @@
         <div id="categoryList" class="category-list"></div>
       </section>
 
+      <div class="panel section-card">
+        <div class="section-head">
+          <h2>Gr&aacute;fico de despesas</h2>
+        </div>
+        <canvas id="categoryChart"></canvas>
+      </div>
+
       <section class="panel section-card" id="recentSection">
         <div class="section-head">
           <h2>&Uacute;ltimos movimentos</h2>
@@ -101,6 +108,34 @@
         <div id="historyList" class="history-list"></div>
       </section>
 
+      <section class="panel section-card hidden" id="settingsSection">
+        <div class="section-head">
+          <h2>Defini&ccedil;&otilde;es</h2>
+        </div>
+
+        <div class="settings-list">
+          <button class="settings-item" id="exportDataBtn">
+            📤 Exportar dados (backup)
+          </button>
+
+          <button class="settings-item" id="importDataBtn">
+            📥 Importar dados
+          </button>
+
+          <button class="settings-item danger" id="resetDataBtn">
+            🗑️ Apagar todos os dados
+          </button>
+
+          <div class="settings-info">
+            <p>Mentis Finance</p>
+            <small>vers&atilde;o 1.0</small>
+            <small>Se limpar os dados do navegador, os dados locais da app podem ser apagados. Use o backup para os guardar.</small>
+          </div>
+
+          <input type="file" id="importDataInput" accept="application/json" class="hidden" />
+        </div>
+      </section>
+
       <section class="panel section-card hidden" id="monthDetailSection">
         <div class="section-head">
           <h2 id="detailMonthTitle">Detalhe do mes</h2>
@@ -149,9 +184,20 @@
         <span>🗂️</span>
         <strong>Historico</strong>
       </button>
+      <button class="nav-btn" data-view="settings">
+        <span>⚙️</span>
+        <strong>Defini&ccedil;&otilde;es</strong>
+      </button>
     </nav>
   </div>
 
+  <div id="toast"></div>
+  <div id="updateNotice" class="update-notice hidden">
+    <span>Nova vers&atilde;o dispon&iacute;vel</span>
+    <button type="button" id="updateAppBtn">Atualizar</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
   <script>
   if ("serviceWorker" in navigator) {
@@ -159,6 +205,35 @@
       try {
         const reg = await navigator.serviceWorker.register("./sw.js", { scope: "./" });
         console.log("Service Worker registado:", reg.scope);
+
+        const notice = document.getElementById("updateNotice");
+        const updateBtn = document.getElementById("updateAppBtn");
+        let refreshing = false;
+
+        function showUpdateNotice() {
+          notice.classList.remove("hidden");
+        }
+
+        reg.addEventListener("updatefound", () => {
+          const installing = reg.installing;
+          if (!installing) return;
+
+          installing.addEventListener("statechange", () => {
+            if (installing.state === "installed" && navigator.serviceWorker.controller) {
+              showUpdateNotice();
+            }
+          });
+        });
+
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (refreshing) return;
+          refreshing = true;
+          showUpdateNotice();
+        });
+
+        updateBtn.addEventListener("click", () => {
+          window.location.reload();
+        });
       } catch (err) {
         console.error("Erro no Service Worker:", err);
       }
